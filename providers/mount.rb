@@ -90,6 +90,9 @@ def mount_volume
     device "#{new_resource.server}:/#{new_resource.name}"
     fstype 'glusterfs'
     options mount_options
+    owner new_resource.owner if new_resource.owner
+    group new_resource.group if new_resource.group
+    mode new_resource.owner if new_resource.owner
     pass 0
     action :mount
   end
