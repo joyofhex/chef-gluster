@@ -67,8 +67,13 @@ def enable_volume
 end
 
 def mount_options
+  default_options = 'defaults,_netdev'
+  options = [
+    default_options,
+    new_resource.mount_options || []
+  ].flatten(1).join(',')
+
   # Define a backup server for this volume, if available
-  options = 'defaults,_netdev'
   unless new_resource.backup_server.nil?
     case
     when new_resource.backup_server.class == String
